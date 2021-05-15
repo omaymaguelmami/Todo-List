@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { Component } from 'react'
   
-export default class App extends Component {
+export default class All extends Component {
     constructor(props){
         super(props)
         this.state = {
@@ -13,15 +13,16 @@ export default class App extends Component {
         axios.post('http://localhost:3000/api/insert' , {
             items : this.state.value
         }).then((response)=> {
-            console.log(response)
+            if(response.status===201){
+                window.location.reload()
+            }
 
         })
     }
    
    
     update(id, chek){
-        console.log(chek)
-        axios.patch('http://localhost:3000/api/update/ '+ id , {
+        axios.patch('http://localhost:3000/api/update/'+ id , {
             chek : !chek
         } ).then((response)=>{
             console.log(response)

@@ -1,6 +1,24 @@
 import React, { Component } from 'react'
 
 export default class Active extends Component {
+    constructor(props){
+        super()
+        this.state = {
+            data: []
+        }
+
+    }
+    componentDidMount(){
+        var arr =[]
+        this.props.data.map((elm)=> {
+            if(elm.chek === 0){
+                arr.push(elm)
+               this.setState({data: arr})
+
+            }
+
+        })
+    }
     render() {
         return (
             <div className="row">
@@ -21,6 +39,17 @@ export default class Active extends Component {
                             Add
                         </button>
                     </div>
+                    {this.state.data.map((elm , index)=>{
+                    return(
+
+                        <div className='inplabel' key={index}>
+
+                            <input  onClick={()=>this.update(elm.id , elm.chek)} type="checkbox" />
+                            <label for="vehicle1">{elm.items}</label><br></br>
+                        </div>
+
+                    )
+                })}
             </div>
         )
     }

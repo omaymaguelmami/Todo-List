@@ -12,20 +12,20 @@ export default class Completed extends Component {
     componentDidMount(){
         var arr =[]
         this.props.data.map((elm)=> {
-            if(elm.chek === true){
+            if(elm.chek === 1){
                 arr.push(elm)
                this.setState({data: arr})
 
             }
-            
+
         })
     }
-    
+
     deleteItem(id){
         axios.delete(' http://localhost:3000/api/delete/' + id).then((response)=> {
             console.log(response)
         })
-        
+        window.location.reload()
     }
 
     render() {
@@ -39,12 +39,12 @@ export default class Completed extends Component {
                             <button onClick={()=>this.deleteItem(elm.id)}>delete one</button>
                         </div>
                     )
-   
+
                 }
-               
+
 
                 )}
-                
+
             <button  className="deltbtn">
             delete all
             </button>
