@@ -5,5 +5,6 @@ USE todo;
 CREATE TABLE IF NOT EXISTS list(
     id int AUTO_INCREMENT, 
     items VARCHAR(200),
+    chek BOOLEAN ,
     PRIMARY KEY (id)
 );

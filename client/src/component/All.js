@@ -6,8 +6,8 @@ export default class App extends Component {
         super(props)
         this.state = {
             value : '',
-            data: [],
         }
+        this.update= this.update.bind(this)
     }
     addDetail(){
         axios.post('http://localhost:3000/api/insert' , {
@@ -17,32 +17,22 @@ export default class App extends Component {
 
         })
     }
-    componentDidMount(){
-        axios.get('http://localhost:3000/api/get').then((response)=> {
-            this.setState({
-                data: response.data
-
-            })
-        })
-    }
-    deleteItem(){
-        axios.delete(' http://localhost:3000/api/delete/' + 3).then((response)=> {
+   
+   
+    update(id, chek){
+        console.log(chek)
+        axios.patch('http://localhost:3000/api/update/ '+ id , {
+            chek : !chek
+        } ).then((response)=>{
             console.log(response)
         })
-        
-    }
-    handleCheckbox(elm){
-        var arr = []
-        arr.push(elm)
-        console.log(elm)
-        localStorage.setItem('item',arr)
-        
     }
 
 
     render() {
         return (
                 <div className="row">
+                    {console.log(this.state)}
                     <div className="col-6">
                         <input
                             id="form"
@@ -60,12 +50,12 @@ export default class App extends Component {
                         </button>
                     </div>
                 
-                {this.state.data.map((elm , index)=>{
+                {this.props.data.map((elm , index)=>{
                     return(
                         
                         <div className='inplabel' key={index}>
                     
-                            <input  onClick={()=>this.handleCheckbox(elm.items)} type="checkbox" />
+                            <input  onClick={()=>this.update(elm.id , elm.chek)} type="checkbox" />
                             <label for="vehicle1">{elm.items}</label><br></br>
                         </div>
                         

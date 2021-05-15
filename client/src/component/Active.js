@@ -4,6 +4,7 @@ export default class Active extends Component {
     render() {
         return (
             <div className="row">
+                {console.log(this.props)}
                  <div className="col-6">
                         <input
                             id="form"

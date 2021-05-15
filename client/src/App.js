@@ -2,7 +2,8 @@
 import React, { Component } from 'react'
 import Active from './component/Active'
 import Completed from './component/Completed'
-import All from './component/All'
+import All from './component/All';
+import axios from 'axios'
 import {
     BrowserRouter as Router,
     Switch,
@@ -11,6 +12,22 @@ import {
   } from "react-router-dom";
 
 export default class App extends Component {
+  constructor(){
+    super()
+    this.state = {
+      data: [],
+
+    }
+  }
+
+  componentDidMount(){
+    axios.get('http://localhost:3000/api/get').then((response)=> {
+        this.setState({
+            data: response.data
+
+        })
+    })
+}
 
     render() {
         return (
@@ -35,13 +52,13 @@ export default class App extends Component {
 
                 <Switch>
           <Route path="/All">
-            <All />
+            <All data={this.state.data} />
           </Route>
           <Route path="/Active">
-            <Active />
+            <Active data={this.state.data} />
           </Route>
           <Route path="/Completed">
-            <Completed />
+            <Completed data={this.state.data} />
           </Route>
         </Switch>
                 </Router>
